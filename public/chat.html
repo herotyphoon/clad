@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Clad - Chat</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="bars" onclick="toggleMenu(this)">
+    <div class="bar1"></div>
+    <div class="bar2"></div>
+    <div class="bar3"></div>
+  </div>
+  <div class="sidebar" id="sidebar">
+    <h2>Menu</h2>
+    <ul>
+      <li><a href="chat.html">Home</a></li>
+      <li><a href="feedback.html">Feedback</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="index.html" onclick="logout()">Log Out</a></li>
+      <li><a href="index.html">Delete Account</a></li>
+    </ul>
+  </div>
+
+  <div class="chat-container">
+    <div class="contact-list">
+      <h2>Contacts</h2>
+      <div class="contact">Aakarsh</div>
+      <div class="contact"></div>
+      <div class="contact"></div>
+    </div>
+    <div class="chat-window">
+      <div class="chat-header">Aakarsh</div>
+      <div class="chat-messages">
+        <div class="message received">hi</div>
+        <div class="message sent">hi</div>
+        <div class="message received">how are you?</div>
+      </div>
+      <div class="chat-input">
+        <textarea type="text" placeholder="Type your message..."></textarea>
+        <div class="chat-send">
+          <button>Send</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <script src="script.js">
+ 
+  </script>
+  <script>
+  const socket = io();
+
+  document.getElementById('sendBtn').addEventListener('click', () => {
+    const msg = document.getElementById('msgInput').value;
+    socket.emit('chatMessage', msg);
+  });
+
+  socket.on('chatMessage', (msg) => {
+    const chatBox = document.getElementById('chatBox');
+    chatBox.innerHTML += `<p>${msg}</p>`;
+  });
+</script>
+
+</body>
+
+</html>
